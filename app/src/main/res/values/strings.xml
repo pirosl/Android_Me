@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Android_Me</string>
+
+    <string name="body_part">Body Part</string>
 </resources>
