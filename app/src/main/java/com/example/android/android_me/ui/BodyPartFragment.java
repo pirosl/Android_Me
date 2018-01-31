@@ -10,6 +10,7 @@ import android.widget.ImageView;
 
 import com.example.android.android_me.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,6 +22,9 @@ public class BodyPartFragment extends Fragment {
 
     // Tag for logging
     private  static final String TAG =  BodyPartFragment.class.getSimpleName();
+
+    public static final String IMAGE_ID_LIST = "image_ids";
+    public static final String LIST_INDEX = "list_index";
 
     // variables to store list of image resources and the index of the image we want to display
     private List<Integer> mImageIds;
@@ -35,6 +39,12 @@ public class BodyPartFragment extends Fragment {
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstance) {
+
+        if(savedInstance != null) {
+            mImageIds =  savedInstance.getIntegerArrayList(IMAGE_ID_LIST);
+            mListIndex = savedInstance.getInt(LIST_INDEX);
+        }
+
         View rootView = inflater.inflate(R.layout.fragment_body_part, container, false);
 
         // get refference to image view
@@ -78,6 +88,17 @@ public class BodyPartFragment extends Fragment {
      */
     public void setListIndex(int listIndex) {
         mListIndex = listIndex;
+    }
+
+    /**
+     * Save current state of the fragment.
+     *
+     * @param currentState - bundle where current state is saved
+     */
+    @Override
+    public void onSaveInstanceState(Bundle currentState) {
+        currentState.putIntegerArrayList(IMAGE_ID_LIST, (ArrayList<Integer>) mImageIds);
+        currentState.putInt(LIST_INDEX, mListIndex);
     }
 
 }
