@@ -2,13 +2,15 @@ package com.example.android.android_me.ui;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.example.android.android_me.R;
-import com.example.android.android_me.data.AndroidImageAssets;
+
+import java.util.List;
 
 /**
  * BodyPartFragment class
@@ -16,6 +18,13 @@ import com.example.android.android_me.data.AndroidImageAssets;
  * @author lucian
  */
 public class BodyPartFragment extends Fragment {
+
+    // Tag for logging
+    private  static final String TAG =  BodyPartFragment.class.getSimpleName();
+
+    // variables to store list of image resources and the index of the image we want to display
+    private List<Integer> mImageIds;
+    private int mListIndex;
 
     public BodyPartFragment() {
 
@@ -32,9 +41,31 @@ public class BodyPartFragment extends Fragment {
         ImageView imageView = rootView.findViewById(R.id.body_part_image_view);
 
         //set image resource to display
-        imageView.setImageResource(AndroidImageAssets.getHeads().get(0));
-
+        if(mImageIds != null) {
+            imageView.setImageResource(mImageIds.get(mListIndex));
+        } else {
+            Log.v(TAG, "This fragment has a null list of image ids");
+        }
         // return rootView
         return rootView;
     }
+
+    /**
+     * Set list of image ids.
+     *
+     * @param imageIds - list of image ids
+     */
+    public void setImageIds(List<Integer> imageIds) {
+        mImageIds = imageIds;
+    }
+
+    /**
+     * Set index of the image to be used.
+     *
+     * @param listIndex - index to be use
+     */
+    public void setListIndex(int listIndex) {
+        mListIndex = listIndex;
+    }
+
 }
